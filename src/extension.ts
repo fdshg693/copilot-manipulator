@@ -1,49 +1,24 @@
-
 import * as vscode from 'vscode';
 import { readFile } from './get-entry-file';
 
-const BASE_PROMPT = 'answer in Japanese. ';
-
 export function activate(context: vscode.ExtensionContext) {
 
-	// define a chat handler
-	const handler: vscode.ChatRequestHandler = async (request: vscode.ChatRequest, context: vscode.ChatContext, stream: vscode.ChatResponseStream, token: vscode.CancellationToken) => {
-		try {
-			// entry.txtの内容を取得し
-			const entryContent = await readFile("entry.txt");
-			const entryLines = entryContent ? entryContent.split('\n') : [];
-			for (const filePath of entryLines) {
-				const prompt = BASE_PROMPT + `read and follow instructions from ${filePath.trim()}\n`;
-				const fileContent = await readFile(filePath.trim());
-				const messages = [
-					vscode.LanguageModelChatMessage.User(fileContent ? fileContent : `Could not read ${filePath.trim()}`),
-				];
-				messages.push(vscode.LanguageModelChatMessage.User(request.prompt));
-				const chatResponse = await request.model.sendRequest(messages, {}, token);
+	// 1) コマンド登録
+	const disposable = vscode.commands.registerCommand('myExtension.sendToCopilot', async () => {
+		// ここに送信したいメッセージを記述
+		const prompt = '1+1';
+		// Copilot Chat を開きつつ、prompt を送信
+		await vscode.commands.executeCommand('workbench.action.chat.open', prompt);
+	});
+	context.subscriptions.push(disposable);
 
-				// stream the response
-				for await (const fragment of chatResponse.text) {
-					stream.markdown(fragment);
-				}
-			}
-		} catch (error) {
-			stream.markdown('Sorry, I encountered an error while processing your request.');
-			console.error('Chat handler error:', error);
-		}
-
-		return;
-	};
-
-	// create participant
-	const tutor = vscode.chat.createChatParticipant("chat-tutorial.code-tutor", handler);
-
-	// add icon to participant
-	tutor.iconPath = vscode.Uri.joinPath(context.extensionUri, 'tutor.jpeg');
-
-	// add to subscriptions for proper cleanup
-	context.subscriptions.push(tutor);
-
-	console.log('Code Tutor chat participant has been registered');
+	// 2) ステータスバーにボタンを作成
+	const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+	statusBarItem.text = '$(comment-discussion) Copilot に送信';
+	statusBarItem.tooltip = 'あらかじめ定義したプロンプトを Copilot Chat に送信します';
+	statusBarItem.command = 'myExtension.sendToCopilot';
+	statusBarItem.show();
+	context.subscriptions.push(statusBarItem);
 }
 
 export function deactivate() { }

@@ -14,19 +14,10 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "chatParticipants": [
+    "commands": [
       {
-        "id": "chat-tutorial.code-tutor",
-        "fullName": "Code Tutor",
-        "name": "tutor",
-        "description": "What can I teach you?",
-        "isSticky": true,
-        "commands": [
-          {
-            "name": "exercise",
-            "description": "Practice with exercises"
-          }
-        ]
+        "command": "myExtension.sendToCopilot",
+        "title": "Send Prompt to Copilot Chat"
       }
     ]
   },
