@@ -9,49 +9,23 @@ export function activate(context: vscode.ExtensionContext) {
 	// define a chat handler
 	const handler: vscode.ChatRequestHandler = async (request: vscode.ChatRequest, context: vscode.ChatContext, stream: vscode.ChatResponseStream, token: vscode.CancellationToken) => {
 		try {
-			// initialize the prompt
-			let prompt = BASE_PROMPT;
-
 			// entry.txtの内容を取得し
 			const entryContent = await readFile("entry.txt");
 			const entryLines = entryContent ? entryContent.split('\n') : [];
+			for (const filePath of entryLines) {
+				const prompt = BASE_PROMPT + `read and follow instructions from ${filePath.trim()}\n`;
+				const fileContent = await readFile(filePath.trim());
+				const messages = [
+					vscode.LanguageModelChatMessage.User(fileContent ? fileContent : `Could not read ${filePath.trim()}`),
+				];
+				messages.push(vscode.LanguageModelChatMessage.User(request.prompt));
+				const chatResponse = await request.model.sendRequest(messages, {}, token);
 
-			if (entryContent && entryContent.trim().length > 0) {
-				prompt += `${entryContent}`;
+				// stream the response
+				for await (const fragment of chatResponse.text) {
+					stream.markdown(fragment);
+				}
 			}
-
-			// initialize the messages array with the prompt
-			const messages = [
-				vscode.LanguageModelChatMessage.User(prompt),
-			];
-
-			// get all the previous participant messages
-			const previousMessages = context.history.filter(
-				(h) => h instanceof vscode.ChatResponseTurn
-			);
-
-			// add the previous messages to the messages array
-			previousMessages.forEach((m) => {
-				let fullMessage = '';
-				m.response.forEach((r) => {
-					if (r instanceof vscode.ChatResponseMarkdownPart) {
-						fullMessage += r.value.value;
-					}
-				});
-				messages.push(vscode.LanguageModelChatMessage.Assistant(fullMessage));
-			});
-
-			// add in the user's message
-			messages.push(vscode.LanguageModelChatMessage.User(request.prompt));
-
-			// send the request
-			const chatResponse = await request.model.sendRequest(messages, {}, token);
-
-			// stream the response
-			for await (const fragment of chatResponse.text) {
-				stream.markdown(fragment);
-			}
-
 		} catch (error) {
 			stream.markdown('Sorry, I encountered an error while processing your request.');
 			console.error('Chat handler error:', error);
