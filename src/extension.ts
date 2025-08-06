@@ -1,20 +1,23 @@
+
 import * as vscode from 'vscode';
+import { readFile } from './get-entry-file';
 
-const BASE_PROMPT = 'You are a helpful code tutor. Your job is to teach the user with simple descriptions and sample code of the concept. Respond with a guided overview of the concept in a series of messages. Do not give the user the answer directly, but guide them to find the answer themselves. If the user asks a non-programming question, politely decline to respond.';
-
-const EXERCISES_PROMPT = 'You are a helpful tutor. Your job is to teach the user with fun, simple exercises that they can complete in the editor. Your exercises should start simple and get more complex as the user progresses. Move one concept at a time, and do not move on to the next concept until the user provides the correct answer. Give hints in your exercises to help the user learn. If the user is stuck, you can provide the answer and explain why it is the answer. If the user asks a non-programming question, politely decline to respond.';
+const BASE_PROMPT = 'answer in Japanese. ';
 
 export function activate(context: vscode.ExtensionContext) {
 
 	// define a chat handler
 	const handler: vscode.ChatRequestHandler = async (request: vscode.ChatRequest, context: vscode.ChatContext, stream: vscode.ChatResponseStream, token: vscode.CancellationToken) => {
-
 		try {
 			// initialize the prompt
 			let prompt = BASE_PROMPT;
 
-			if (request.command === 'exercise') {
-				prompt = EXERCISES_PROMPT;
+			// entry.txtの内容を取得し
+			const entryContent = await readFile("entry.txt");
+			const entryLines = entryContent ? entryContent.split('\n') : [];
+
+			if (entryContent && entryContent.trim().length > 0) {
+				prompt += `${entryContent}`;
 			}
 
 			// initialize the messages array with the prompt
@@ -55,7 +58,6 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		return;
-
 	};
 
 	// create participant
