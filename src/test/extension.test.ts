@@ -13,3 +13,34 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
 	});
 });
+
+import { hasGeneratingSession } from '../get-session-status';
+
+describe('hasGeneratingSession', () => {
+	it('returns true if any session has activeResponseCallback', async () => {
+		const provider = {
+			provideChatSessionItems: async () => [{ id: '1' }, { id: '2' }]
+		};
+		const contentProv = {
+			provideChatSessionContent: async (id: string) => {
+				if (id === '1') return { activeResponseCallback: undefined };
+				if (id === '2') return { activeResponseCallback: () => { } };
+			}
+		};
+		const token = { isCancellationRequested: false } as any;
+		const result = await hasGeneratingSession(provider as any, contentProv as any, token);
+		assert.strictEqual(result, true);
+	});
+
+	it('returns false if no session has activeResponseCallback', async () => {
+		const provider = {
+			provideChatSessionItems: async () => [{ id: '1' }]
+		};
+		const contentProv = {
+			provideChatSessionContent: async () => ({ activeResponseCallback: undefined })
+		};
+		const token = { isCancellationRequested: false } as any;
+		const result = await hasGeneratingSession(provider as any, contentProv as any, token);
+		assert.strictEqual(result, false);
+	});
+});
