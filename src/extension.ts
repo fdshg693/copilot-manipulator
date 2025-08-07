@@ -1,6 +1,7 @@
 
 import * as vscode from 'vscode';
 import { readFile } from './get-entry-file';
+import * as chatUtils from '@vscode/chat-extension-utils';
 
 const BASE_PROMPT = 'answer in Japanese. ';
 
@@ -12,6 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
 			// entry.txtの内容を取得し
 			const entryContent = await readFile("entry.txt");
 			const entryLines = entryContent ? entryContent.split('\n') : [];
+			const tools = vscode.lm.tools;
 			for (const filePath of entryLines) {
 				const prompt = BASE_PROMPT + `read and follow instructions from ${filePath.trim()}\n`;
 				const fileContent = await readFile(filePath.trim());
@@ -19,12 +21,21 @@ export function activate(context: vscode.ExtensionContext) {
 					vscode.LanguageModelChatMessage.User(fileContent ? fileContent : `Could not read ${filePath.trim()}`),
 				];
 				messages.push(vscode.LanguageModelChatMessage.User(request.prompt));
-				const chatResponse = await request.model.sendRequest(messages, {}, token);
-
-				// stream the response
-				for await (const fragment of chatResponse.text) {
-					stream.markdown(fragment);
-				}
+				const chatResponse = chatUtils.sendChatParticipantRequest(
+					request,
+					context,
+					{
+						prompt: prompt,
+						responseStreamOptions: {
+							stream,
+							references: true,
+							responseText: true
+						},
+						tools
+					},
+					token
+				);
+				await chatResponse.result;
 			}
 		} catch (error) {
 			stream.markdown('Sorry, I encountered an error while processing your request.');
