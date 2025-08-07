@@ -1,6 +1,6 @@
-`user.txt`を読んで、ユーザーの実力を把握してください
-`words.txt`に書かれている単語を使った選択式問題を作成して、`question.txt`に書き込んでください。
-解答も作成して、`answer.txt`に書き込んでください。
+`run{maximum number}/evaluation.txt`を読んで、ユーザーの実力を把握してください
+`run{maximum number}/words.txt`に書かれている単語を使った選択式問題を作成して、`run{maximum number}/question.txt`に書き込んでください。
+`run{maximum number}/question.txt`には絶対に解答を書かないでください！！！
 
 question.txtの例:
 ```
@@ -17,3 +17,4 @@ C) 医者
 D) エンジニア
 ユーザー解答：
 ```
+

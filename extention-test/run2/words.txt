@@ -1,0 +1,10 @@
+1. vriend（友達）
+2. familie（家族）
+3. huis（家）
+4. school（学校）
+5. werk（仕事）
+6. stad（町）
+7. winkel（店）
+8. boek（本）
+9. fiets（自転車）
+10. eten（食べ物）

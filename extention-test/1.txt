@@ -1,1 +1,2 @@
-`user.txt`を読んで、ユーザーの実力に合わせた単語を10個選んで`words.txt`に書き込んでください。
+`run{maximum number+1}`というディレクトリを作成してください。
+`run{maximum number}/evaluation.txt`を読んで、ユーザーの実力に合わせた単語を10個選んで`run{maximum number+1}/words.txt`に書き込んでください。

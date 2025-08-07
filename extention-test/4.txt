@@ -1,7 +1,6 @@
-`question.txt`にあるユーザの解答を元に採点して、`question.txt`に正解を追記してください。
+`run{maximum number}/question.txt`にあるユーザの解答を元に採点して、`run{maximum number}/check.txt`に正解を追記してください。
 
-`question.txt`の例:
-### before
+## `question.txt`の例:
 ```
 1. He is a teacher.
 A) 学生
@@ -10,7 +9,8 @@ C) 医者
 D) エンジニア
 ユーザー解答：B
 ```
-### after
+
+## `check.txt`の例:
 ```
 1. He is a teacher.
 A) 学生

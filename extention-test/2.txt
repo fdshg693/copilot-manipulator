@@ -1,2 +1,2 @@
-`user.txt`を読んで、ユーザーの実力を把握してください
-`words.txt`に書かれている単語を使った例文と和訳を作成して、`sample.txt`に書き込んでください。
+`run{maximum number}/evaluation.txt`を読んで、ユーザーの実力を把握してください
+`run{maximum number}/words.txt`に書かれている単語を使った例文と和訳を作成して、`run{maximum number}/sample.txt`に書き込んでください。

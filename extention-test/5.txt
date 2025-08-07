@@ -1,0 +1,1 @@
+`run{maximum number}/check.txt`の結果を元に、`run{maximum number}/evaluation.txt`にユーザーのレベルを記載してください。

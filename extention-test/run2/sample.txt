@@ -1,0 +1,29 @@
+1. vriend（友達）
+- Mijn vriend helpt me altijd.（私の友達はいつも私を助けてくれます。）
+
+2. familie（家族）
+- Mijn familie woont in Japan.（私の家族は日本に住んでいます。）
+
+3. huis（家）
+- Dit is mijn huis.（これは私の家です。）
+
+4. school（学校）
+- De school begint om acht uur.（学校は8時に始まります。）
+
+5. werk（仕事）
+- Ik ga naar mijn werk met de fiets.（私は自転車で仕事に行きます。）
+
+6. stad（町）
+- De stad is groot en mooi.（その町は大きくてきれいです。）
+
+7. winkel（店）
+- Ik koop brood in de winkel.（私は店でパンを買います。）
+
+8. boek（本）
+- Dit boek is interessant.（この本は面白いです。）
+
+9. fiets（自転車）
+- Mijn fiets is nieuw.（私の自転車は新しいです。）
+
+10. eten（食べ物）
+- Eten is belangrijk voor je gezondheid.（食べ物は健康に大切です。）

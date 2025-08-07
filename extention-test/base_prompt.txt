@@ -1,0 +1,5 @@
+# This instruction should be always respected and followed.
+- # After Finishing the task, write a ##finish## to finish.txt under the current directory.
+
+# Current Environment:
+1. there are folders named `run1`, `run2`, `run{number}`, etc. in the directory.
