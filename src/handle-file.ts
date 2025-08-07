@@ -24,3 +24,21 @@ export async function readFile(filePath: string) {
     return content;
 }
 
+export async function writeFile(filePath: string, content: string) {
+    const folders = vscode.workspace.workspaceFolders;
+    if (!folders?.length) {
+        vscode.window.showErrorMessage('ワークスペースフォルダーが開かれていません');
+        return;
+    }
+    const wsRoot = folders[0].uri.fsPath;
+    const fileUri = vscode.Uri.file(path.join(wsRoot, filePath));
+
+    try {
+        // ファイルに書き込む
+        await vscode.workspace.fs.writeFile(fileUri, Buffer.from(content, 'utf8'));
+        vscode.window.showInformationMessage(`${filePath} に内容を書き込みました`);
+    } catch (err) {
+        vscode.window.showErrorMessage(`${filePath} への書き込みに失敗しました: ${err}`);
+    }
+}
+
