@@ -1,1 +1,1 @@
-what is the capital of France?
+`user.txt`を読んで、ユーザーの実力に合わせた単語を10個選んで`words.txt`に書き込んでください。

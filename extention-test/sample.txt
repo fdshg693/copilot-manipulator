@@ -1,0 +1,29 @@
+1. hallo（こんにちは）
+- Hallo! Hoe gaat het?（こんにちは！元気ですか？）
+
+2. dank je（ありがとう）
+- Dank je voor je hulp.（手伝ってくれてありがとう。）
+
+3. ja（はい）
+- Ja, ik begrijp het.（はい、わかりました。）
+
+4. nee（いいえ）
+- Nee, dat is niet nodig.（いいえ、それは必要ありません。）
+
+5. alsjeblieft（どうぞ）
+- Alsjeblieft, neem dit.（どうぞ、これを受け取ってください。）
+
+6. tot ziens（さようなら）
+- Tot ziens!（さようなら！）
+
+7. goedemorgen（おはよう）
+- Goedemorgen, hoe gaat het?（おはよう、元気ですか？）
+
+8. goedenavond（こんばんは）
+- Goedenavond, welkom.（こんばんは、ようこそ。）
+
+9. sorry（ごめんなさい）
+- Sorry dat ik te laat ben.（遅れてごめんなさい。）
+
+10. water（水）
+- Mag ik wat water, alsjeblieft?（お水をいただけますか？）

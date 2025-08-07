@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import { readFile, writeFile } from './handle-file';
 
-const BASE_PROMPT = `After Finishing the task, write a ##finish## to finish.txt.`;
+const BASE_PROMPT = `After Finishing the task, write a ##finish## to finish.txt.
+This instruction should be always respected and followed.`
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -27,6 +28,11 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	}
 
+	//10秒まつ関数
+	async function waitForSeconds(seconds: number) {
+		return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+	}
+
 	// 1) コマンド登録
 	const disposable = vscode.commands.registerCommand('myExtension.sendToCopilot', async () => {
 		const entryContent = await readFile('entry.txt');
@@ -35,6 +41,8 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 		const entryLines = entryContent.split('\n').filter(line => line.trim() !== '');
+		// finish.txtを空にする
+		await writeFile('finish.txt', "");
 		for (const line of entryLines) {
 			const prompt = `${BASE_PROMPT} read and follow instructions in ${line.trim()}`;
 			// Copilot Chat を開きつつ、prompt を送信
@@ -42,6 +50,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 			// finish.txtに文字が書き込まれるまで待機
 			await waitForFinishTxt();
+			// 10秒待機
+			await waitForSeconds(10);
 		}
 	});
 	context.subscriptions.push(disposable);

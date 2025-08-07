@@ -1,0 +1,10 @@
+1. hallo（こんにちは）
+2. dank je（ありがとう）
+3. ja（はい）
+4. nee（いいえ）
+5. alsjeblieft（どうぞ）
+6. tot ziens（さようなら）
+7. goedemorgen（おはよう）
+8. goedenavond（こんばんは）
+9. sorry（ごめんなさい）
+10. water（水）

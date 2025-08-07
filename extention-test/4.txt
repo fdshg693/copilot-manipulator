@@ -1,0 +1,22 @@
+`question.txt`にあるユーザの解答を元に採点して、`question.txt`に正解を追記してください。
+
+`question.txt`の例:
+### before
+```
+1. He is a teacher.
+A) 学生
+B) 教師
+C) 医者
+D) エンジニア
+ユーザー解答：B
+```
+### after
+```
+1. He is a teacher.
+A) 学生
+B) 教師
+C) 医者
+D) エンジニア
+ユーザー解答：B
+正解：B
+```
